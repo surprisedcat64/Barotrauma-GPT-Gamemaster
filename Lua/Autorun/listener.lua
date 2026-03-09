@@ -66,19 +66,12 @@ end)
 
 Hook.Add("tryChangeClientName", "moderate player names", function (client, newName, newJob, newTeam)
     local oldname = client.Name
-    if newName == oldname then oldname = "invalid name" end
-    GPT.Moderate(newName, function(response)
-        local info = JSON.decode(response)
-        if info.results[1].flagged then
-            local chatMessage = ChatMessage.Create("Game", string.format("Invalid Name!!!\nYou tried to change your name to %s", GPT.CleanMessage(response,newName)),
-            ChatMessageType.MessageBox, nil, nil)
-            chatMessage.Color = Color(255,0,0)
-            Game.SendDirectChatMessage(chatMessage, client)
-            client.Name = oldname
-            Networking.LastClientListUpdateID = Networking.LastClientListUpdateID + 1
-            Game.SendMessage(string.format("%s\'s name change request has been rejected.", oldname),ChatMessageType.Server, nil, nil )
-        end
-    end)
+    if newName == oldname then
+        oldname = "invalid name"
+    end
+
+    -- No moderation check; name change proceeds normally
+    return
 end)
 
 -- Hook.Add("loaded", "game fully loaded", function ()
@@ -172,14 +165,11 @@ Hook.Add("item.use", "player uses an item", function(item, itemUser, targetLimb)
     end
  end)
 
- Hook.Add("chatMessage", "player message", function(message, sender)
-    GPT.Moderate(message, function(response)
-        local msg = string.format("%s radioed: %s", sender.Character.Name, GPT.CleanMessage(response,message))
-        print(msg)
-        Actions.Log(msg)
-
-    end)
- end)
+Hook.Add("chatMessage", "player message", function(message, sender)
+    local msg = string.format("%s radioed: %s", sender.Character.Name, message)
+    print(msg)
+    Actions.Log(msg)
+end)
 
 --  Hook.Add("chatMessage", "debug commands", function(message, sender)
 --     if message == "query" then
