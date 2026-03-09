@@ -218,7 +218,7 @@ local function execute(response)
 end
 
 local function sendToGPT(data)
-    Networking.HttpPost("https://api.openai.com/v1/chat/completions",function (resolve)
+    Networking.HttpPost("http://172.0.0.1:1234/v1/chat/completions",function (resolve)
        local ok, result = pcall(execute, resolve)
        if not ok then
             print(resolve)
