@@ -2,6 +2,8 @@ JSON = require "json"
 Actions = require "actions"
 Helpers = require "helpers"
 Secret = require "secret"
+Config = require "config"
+
 CallToFunction = {
     ["PlaceItem"] = Actions.PlaceItem,
     ["SendPrivateMessage"] = Actions.SendDM,
@@ -17,20 +19,17 @@ CallToFunction = {
     ["ReplaceHeldItem"] = Actions.ReplaceEquippedItem,
     ["SummonSwarm"] = Actions.SpawnSwarm
 }
+
 TokenBuffer = {}
-MadPrompt = File.Read("LocalMods\\Gamemaster\\Lua\\resources\\madGodPrompt.txt")
-NormalPrompt = File.Read("LocalMods\\Gamemaster\\Lua\\resources\\prompt.txt")
+
+MadPrompt = File.Read("LocalMods/Gamemaster/Lua/resources/madGodPrompt.txt")
+NormalPrompt = File.Read("LocalMods/Gamemaster/Lua/resources/prompt.txt")
 FunctionList = JSON.decode(File.Read("LocalMods/Gamemaster/Lua/resources/functions.json"))
+
 Prompt = NormalPrompt
-SixteenK = {
-    name = "gpt-3.5-turbo-16k-0613",
-    MaxTokens = 16000
-}
-Turbo = {
-    name = "gpt-3.5-turbo-0613",
-    MaxTokens = 4000
-}
-Model = Turbo
+
+-- Model now comes from config.lua
+Model = Config.Model
 Temperature = 1.4
 MessageBuffer = {}
 FunctionLen = 3260
