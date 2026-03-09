@@ -21,7 +21,11 @@ WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
 FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
 OTHER DEALINGS IN THE SOFTWARE.
 
+Portions of this project are based on BAROTRAUMA-GPT-GAMEMASTER
+by the original author.
 
-This project is based on BAROTRAUMA-GPT-GAMEMASTER.
-The original project did not include a license.
-All new code in this repository is licensed under MIT.
+The upstream project did not include a license. Rights to the
+original code remain with the original author.
+
+All original code written for this repository is licensed under
+the MIT License above.
