@@ -308,19 +308,38 @@ end)
     end
  end)
 
- Hook.Add("inventoryPutItem", "Player Takes item out of another Player's Inventory", function(inventory, item, characterUser, index, swapWholeStackBool)
-    if inventory.ToString() == "Barotrauma.CharacterInventory" and item.PreviousParentInventory.ToString() == "Barotrauma.CharacterInventory" and
-    item.PreviousParentInventory.character.Name~= characterUser.Name then
-        local prevInv = item.PreviousParentInventory
-        local msg = string.format("%s took %s's %s", characterUser.Name, prevInv.character.Name, item.Name)
-        if Wearing[prevInv.character] and Helpers.Contains(Wearing[prevInv.character], item.Name) then
-            msg = string.format("%s stripped off %s's %s", characterUser.Name, prevInv.character.Name, item.Name)
+Hook.Add("inventoryPutItem", "Player Takes item out of another Player's Inventory", function(inventory, item, characterUser, index, swapWholeStackBool)
+
+    if not item or not item.PreviousParentInventory then return end
+    if not inventory or not characterUser then return end
+
+    local prevInv = item.PreviousParentInventory
+
+    if inventory.ToString() == "Barotrauma.CharacterInventory"
+    and prevInv.ToString() == "Barotrauma.CharacterInventory"
+    and prevInv.character
+    and prevInv.character.Name ~= characterUser.Name then
+
+        local msg = string.format("%s took %s's %s",
+            characterUser.Name,
+            prevInv.character.Name,
+            item.Name
+        )
+
+        if Wearing[prevInv.character]
+        and Helpers.Contains(Wearing[prevInv.character], item.Name) then
+            msg = string.format("%s stripped off %s's %s",
+                characterUser.Name,
+                prevInv.character.Name,
+                item.Name
+            )
         end
+
         print(msg)
         Actions.Log(msg)
-
     end
- end)
+
+end)
 
  Hook.Add("statusEffect.apply.flamer", "flamer event", function(effect, deltaTime, item, targets, worldPosition)
 
