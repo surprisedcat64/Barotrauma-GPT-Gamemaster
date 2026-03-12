@@ -1,30 +1,23 @@
 # Local Setup
-## Dependencies:
-- have a copy of Barotrauma
-- install this mod from the workshop: https://steamcommunity.com/sharedfiles/filedetails/?id=2559634234
-- LMSTUDIO set to port 1234 
 
-# Running
-- place GAMEMASTER folder in steamapps/common/Barotrauma/LocalMods
-- Open Barotrauma
-- Host a Server
-   - When making the game there will be a dropdown for "Server executable" set this to "Lua for Barotrauma"
-- ~~press F3 and feast your eyes upon the errors :)~~
+## Requirements
 
-# Refrences
-- [Lua for barotrauma docs](https://evilfactory.github.io/LuaCsForBarotrauma/lua-docs/manual/getting-started/)
-- [Lua for Barotrauma Repo](https://github.com/evilfactory/LuaCsForBarotrauma/tree/6b149e0498b9b634847c867ec6a211532f609c7b)
+- A copy of **Barotrauma**
+- Install **Lua for Barotrauma** from the workshop:  
+https://steamcommunity.com/sharedfiles/filedetails/?id=2559634234
 
-# Contributing
-- If for some reason you want to contribute to this repo make a fork and put in a PR
-## Basic Overview
-- listener.lua uses Hooks to log whats happening in the game, and then, at a random interval will send these logs to GPT
-- actions.lua is where all the different abilities the Gamemaster has are defined
-- helpers.lua has a bunch of assorted utility functions
-- GPT.lua handles generating the prompts for GPT and making and processing API calls to OpenAI
-- json.lua is a handy little json parser that someone else made
-- You can edit the prompts sent to GPT by editing the prompt files in resources
-  - I did not implement a sophisticated prompt selection solution out of laziness
-  - Maybe you can make that
+## Installation
 
+1. Download or clone this repository.
 
+2. Place the `GAMEMASTER` folder into: steamapps/common/Barotrauma/LocalMods (or ~/.local/share/Steam/steamapps/common/Barotrauma/LocalMods)
+3. Create the API key file.
+Inside the `Lua` folder, Modify the secret.lua file if not self hosting
+
+## Self Hosting
+- Install LMSTUDIO ( https://lmstudio.ai )
+- Install Qwen 3 1.7B
+- start the server on port 1234
+
+## OPENAI
+- Set the config file in the Lua folder to Openai and set the key in secret.lua
