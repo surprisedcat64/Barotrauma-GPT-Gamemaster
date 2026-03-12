@@ -109,7 +109,9 @@ function SendDM(arg)
     local client = Util.FindClientCharacter(character)
     local chatMessage = ChatMessage.Create(getDirectorName(), message, ChatMessageType.Default, nil, nil)
     chatMessage.Color = Color(255,165,0)
-    Game.SendDirectChatMessage(chatMessage, client)
+    if client ~= nil then
+        Game.SendDirectChatMessage(chatMessage, client)
+    end
     Log(string.format("You Messaged %s: %s", arg.character, message))
 end
 
