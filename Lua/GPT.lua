@@ -493,17 +493,23 @@ if not ok_json or not data or not data.choices then
                                         end
                                         end
 
+cal headers = {
+    ["Content-Type"] = "application/json",
+    ["Authorization"] = "Bearer " .. Config.API.key
+}
+
 local function sendToGPT(data)
-    Networking.HttpPost("http://127.0.0.1:1234/v1/chat/completions", function(resolve)
-        -- Print the raw response from LM Studio so we can see any errors
-        print("LM Studio Raw Response: " .. tostring(resolve))
+    Networking.HttpPost(Config.API.url, function(resolve)
+
+        -- Print the raw response so errors are visible
+        print("Model Raw Response: " .. tostring(resolve))
 
         local ok, result = pcall(execute, resolve)
         if not ok then
             print("Execute function failed! Error: " .. tostring(result))
-            -- Removed: Model = SixteenK (This was causing the nil crash!)
         end
-    end, data, "application/json", {["Authorization"] = string.format("Bearer %s", Secret.TOKEN)}, nil)
+
+    end, data, "application/json", headers, nil)
 end
 
 function Upload(log, tokens)
