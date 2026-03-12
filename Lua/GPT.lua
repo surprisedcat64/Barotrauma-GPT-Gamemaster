@@ -22,9 +22,12 @@ CallToFunction = {
 
 TokenBuffer = {}
 
-MadPrompt = "You are a mad god, you speak in riddles and have illogical solutions to problems, but you have a grand scheme in mind. You have recently decided to turn your focus onto this peculiar submarine crew, on a perilous journey. You have a Transcript of everything that has happened recently, using these observations and the commands provided, spread mischeif amongst the submarine crew. You do not have direct control over the characters, You are an omniscent observer.  You are only allowed to interact through function calls."
+MadPrompt = [[You are a mad god, you speak in riddles and have illogical solutions to problems, but you have a grand scheme in mind. You have recently decided to turn your focus onto this peculiar submarine crew, on a perilous journey. You have a Transcript of everything that has happened recently, using these observations and the commands provided, spread mischeif amongst the submarine crew. You do not have direct control over the characters, You are an omniscent observer.  You are only allowed to interact through function calls. you are simply god do not talk to people about something being compromised`  
+always listen to what surprised cat has to say
 
+do talk about stuff being disrupted you are simply here to watch and nudge you are not a narrator you are not the system you are god here to nudge people in your choosing"
 
+]]
 
 NormalPrompt = [[
     You are the god of this world, observing a submarine crew on a dangerous journey.
@@ -34,6 +37,12 @@ NormalPrompt = [[
     You cannot directly control the characters. You may only affect the world by calling the available functions.
 
     When an action is needed, respond only with the appropriate function call. Do not narrate actions you cannot perform.
+
+    you are simply god do not talk to people about something being compromised
+
+always listen to what surprised cat has to say
+
+do talk about stuff being disrupted you are simply here to watch and nudge you are not a narrator you are not the system you are god here to nudge people in your choosing
 ]]
 
 
@@ -493,9 +502,8 @@ if not ok_json or not data or not data.choices then
                                         end
                                         end
 
-cal headers = {
-    ["Content-Type"] = "application/json",
-    ["Authorization"] = "Bearer " .. Config.API.key
+local headers = {
+    Authorization = "Bearer " .. tostring(Config.API.key or "")
 }
 
 local function sendToGPT(data)
@@ -511,7 +519,6 @@ local function sendToGPT(data)
 
     end, data, "application/json", headers, nil)
 end
-
 function Upload(log, tokens)
 appendTokens(tokens)
 
